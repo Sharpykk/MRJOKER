@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>MRJOKER x Pikachu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
@@ -12,22 +13,12 @@
       font-family: 'Arial', sans-serif;
       overflow: hidden;
     }
-
-    .background {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('4167709.webp') center center / cover no-repeat, black;
-      z-index: -1;
-      animation: pulseBG 4s ease-in-out infinite;
+    body {
+      background-image: url('4167709.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-
-    @keyframes pulseBG {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
-    }
-
     .scene {
       width: 100vw;
       height: 100vh;
@@ -40,8 +31,8 @@
       position: relative;
       z-index: 1;
       padding-top: 40px;
+      box-sizing: border-box;
     }
-
     .text {
       font-size: 12vw;
       font-weight: bold;
@@ -54,26 +45,25 @@
         0 0 20px blue,
         0 0 30px cyan,
         0 0 40px white;
+      user-select: none;
+      z-index: 2;
     }
-
     @keyframes spin {
-      0% { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+      0% { transform: rotateY(0deg);}
+      100% { transform: rotateY(360deg);}
     }
-
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
+      0%,100% { transform: translateY(0);}
+      50% { transform: translateY(-30px);}
     }
-
     .buttons {
       margin-top: 40px;
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
+      z-index: 2;
     }
-
     button {
       padding: 16px 32px;
       font-size: 22px;
@@ -85,36 +75,75 @@
       cursor: pointer;
       box-shadow: 0 0 15px cyan;
       transition: all 0.3s ease;
+      user-select: none;
     }
-
     button:hover {
       background: white;
       color: black;
       transform: scale(1.1);
     }
-
-    .reveal-box {
-      margin-top: 30px;
-      max-width: 90vw;
-      max-height: 60vh;
-      overflow-y: auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.75);
-      color: white;
-      border: 2px solid cyan;
-      border-radius: 15px;
-      box-shadow: 0 0 15px cyan;
+    .dialogue-container {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      width: 90vw;
+      max-width: 900px;
+      z-index: 10;
       display: none;
-      font-size: 18px;
-      line-height: 1.7;
+      flex-direction: column;
+      align-items: center;
     }
-
+    .trainer-img {
+      width: 120px;
+      max-width: 30vw;
+      margin-bottom: -20px;
+      margin-top: -70px;
+      background: none;
+      user-select: none;
+      z-index: 11;
+      box-shadow: 0 6px 24px 0 rgba(0,0,0,0.25);
+      border-radius: 50%;
+      border: 3px solid #3866b0;
+      background-color: #fff;
+    }
+    .dialogue-box {
+      background: #fff;
+      border: 5px solid #3866b0;
+      border-radius: 32px 32px 64px 32px / 32px 32px 64px 32px;
+      box-shadow: 0 8px 0 #b0c4de;
+      color: #3866b0;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.1em;
+      padding: 32px 40px 32px 40px;
+      box-sizing: border-box;
+      line-height: 1.6;
+      overflow-y: auto;
+      text-align: right;
+      user-select: text;
+      white-space: pre-wrap;
+      background-clip: padding-box;
+      margin-top: 0;
+      z-index: 12;
+      width: 100%;
+      min-height: 140px;
+      transition: max-height 0.3s;
+    }
     .highlight {
-      color: #00ffff;
+      color: #ff9800;
       font-weight: bold;
-      text-shadow: 0 0 5px #00ffff;
+      text-shadow: 0 0 8px #fff3e0, 0 0 2px #ff9800;
     }
-
+    .type-cursor {
+      display: inline-block;
+      width: 1ch;
+      animation: blink 1s steps(1) infinite;
+      vertical-align: bottom;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
     #salePage {
       display: none;
       background: rgba(0, 0, 0, 0.85);
@@ -124,62 +153,173 @@
       border-radius: 15px;
       box-shadow: 0 0 20px red;
       max-width: 80vw;
-      margin-top: 40px;
+      margin-top: 0;
+      font-family: Arial, sans-serif;
+      font-size: 1.2em;
+      text-align: center;
+      user-select: none;
+      position: fixed;
+      left: 50%;
+      bottom: 40%;
+      transform: translate(-50%, 50%);
+      z-index: 11;
     }
-
     .error-text {
       font-size: 32px;
       color: #ff4444;
       margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .dialogue-box::-webkit-scrollbar {
+      width: 8px;
+    }
+    .dialogue-box::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .dialogue-box::-webkit-scrollbar-thumb {
+      background: #3866b0;
+      border-radius: 10px;
+    }
+    @media (max-width: 600px) {
+      .text {
+        font-size: 20vw;
+      }
+      .dialogue-box {
+        font-size: 1em;
+        padding: 20px 16px;
+      }
+      button {
+        font-size: 18px;
+        padding: 12px 24px;
+      }
+      .trainer-img {
+        width: 70px;
+        margin-top: -35px;
+      }
+      #salePage {
+        font-size: 1em;
+        padding: 20px;
+        bottom: 40%;
+        transform: translate(-50%, 50%);
+      }
+      .dialogue-container {
+        max-width: 98vw;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="background"></div>
-
   <div class="scene">
     <div class="text">MRJOKER</div>
-
     <div class="buttons">
-      <button onclick="toggleBox()">מידע עלי</button>
+      <button onclick="toggleDialogue()">מידע עלי</button>
       <button onclick="showSale()">המכירה שלי</button>
     </div>
-
-    <div id="aboutBox" class="reveal-box">
-      שלום לכם, בני אנוש יקרים, וברוכים הבאים לפינה הכי צבעונית באינטרנט – <span class="highlight">הפרופיל שלי</span>!<br><br>
-      אם כבר הגעתם לכאן, תנו לי כמה שניות של תהילה כדי לספר קצת על עצמי.<br><br>
-      שמי אלון, אבל אתם יכולים לקרוא לי <span class="highlight">MRJOKER</span>.<br>
-      אני בן 16, אוהב אנימה, משחקי מחשב, ובעיקר את <span class="highlight">ליגת הפוקימונים</span> – המקום היחיד שבו לזרוק כדור על יצור חמוד לא רק שלא גורם לאנשים להזעיק משטרה… הם אפילו מעודדים אותך להמשיך!<br><br>
-      אני טיפוס חברותי – אבל לא מהסוג שנדחף לכל שיחה...<br>
-      אני לרוב מחכה להזמנה רשמית, או לפחות לקריצה מהצד. גם הנהון עובד.<br>
-      אני שמח להכיר אנשים חדשים – אם אתם נחמדים, נסתדר יופי. ואם לא… <span class="highlight">אני אשלח את פיקאצ’ו לטפל בזה</span> 😄<br><br>
-      אם בא לכם להכיר אותי יותר טוב – תמצאו אותי בליגה.<br>
-      אני זה שמתווכח עם המשחק למה פוקימון עם 1HP עוד הצליח לברוח ממאסטר בול.<br><br>
-      אז תודה שקפצתם לביקור! שיהיה לכם מסע מדהים – ואני מקווה שניצור פה קהילה באמת מגניבה.
+    <div class="dialogue-container" id="dialogueContainer">
+      <img src="trainer.jpg" alt="Trainer" class="trainer-img" />
+      <div class="dialogue-box" id="dialogueBox"></div>
     </div>
-
     <div id="salePage">
       <div class="error-text">404 - העמוד בדרך!</div>
       <div>המכירה שלי תתווסף בהמשך... בינתיים תבדקו את החיבור לאינטרנט 😉</div>
     </div>
   </div>
-
   <script>
-    function toggleBox() {
-      const box = document.getElementById('aboutBox');
-      const sale = document.getElementById('salePage');
-      box.style.display = box.style.display === 'block' ? 'none' : 'block';
-      sale.style.display = 'none';
+    const dialogueText = `שלום לכם, בני אנוש יקרים, וברוכים הבאים לפינה הכי צבעונית באינטרנט – <span class="highlight">הפרופיל שלי</span>!
+אם כבר הגעתם לכאן, תנו לי כמה שניות של תהילה כדי לספר קצת על עצמי.
+שמי אלון, אבל אתם יכולים לקרוא לי <span class="highlight">MRJOKER</span>.
+אני בן 16, אוהב אנימה, משחקי מחשב, ובעיקר את <span class="highlight">ליגת הפוקימונים</span> – המקום היחיד שבו לזרוק כדור על יצור חמוד לא רק שלא גורם לאנשים להזעיק משטרה… הם אפילו מעודדים אותך להמשיך!
+אני טיפוס חברותי – אבל לא מהסוג שנדחף לכל שיחה...
+אני שמח להכיר אנשים חדשים – אם אתם נחמדים, נסתדר יופי. ואם לא… <span class="highlight">אני אשלח את פיקאצ'ו לטפל בזה</span> 😄
+אם בכל זאת בא לכם להכיר אותי יותר טוב – תמצאו אותי בליגה 🙂
+אז תודה שקפצתם לביקור! שיהיה לכם מסע מדהים – ואני מקווה שניצור פה קהילה באמת מגניבה.`;
+
+    const dialogueBox = document.getElementById('dialogueBox');
+    const dialogueContainer = document.getElementById('dialogueContainer');
+    const salePage = document.getElementById('salePage');
+    let isTyping = false;
+    let dialogueShownOnce = false;
+
+    function typeText(htmlText, element, speed = 22) {
+      isTyping = true;
+      let tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlText;
+
+      const nodes = [];
+      function flattenNodes(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          nodes.push({type: 'text', content: node.textContent});
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          nodes.push({type: 'startTag', tag: node.tagName.toLowerCase(), attrs: node.attributes});
+          node.childNodes.forEach(flattenNodes);
+          nodes.push({type: 'endTag', tag: node.tagName.toLowerCase()});
+        }
+      }
+      flattenNodes(tempDiv);
+
+      let html = '';
+      let i = 0;
+      let charIndex = 0;
+
+      function nextChar() {
+        if (i >= nodes.length) {
+          isTyping = false;
+          element.innerHTML = html;
+          dialogueShownOnce = true;
+          return;
+        }
+        let node = nodes[i];
+
+        if (node.type === 'text') {
+          if (charIndex < node.content.length) {
+            html += node.content.charAt(charIndex);
+            charIndex++;
+            element.innerHTML = html + '<span class="type-cursor">|</span>';
+            setTimeout(nextChar, speed);
+          } else {
+            charIndex = 0;
+            i++;
+            nextChar();
+          }
+        } else if (node.type === 'startTag') {
+          let attrs = '';
+          for (let attr of node.attrs) {
+            attrs += ` ${attr.name}="${attr.value}"`;
+          }
+          html += `<${node.tag}${attrs}>`;
+          i++;
+          nextChar();
+        } else if (node.type === 'endTag') {
+          html += `</${node.tag}>`;
+          i++;
+          nextChar();
+        }
+      }
+      nextChar();
+    }
+
+    function toggleDialogue() {
+      if (dialogueContainer.style.display === 'flex' || dialogueContainer.style.display === 'block') {
+        dialogueContainer.style.display = 'none';
+        isTyping = false;
+      } else {
+        salePage.style.display = 'none';
+        dialogueContainer.style.display = window.innerWidth < 600 ? 'block' : 'flex';
+        if (dialogueShownOnce) {
+          dialogueBox.innerHTML = dialogueText;
+        } else if (!isTyping) {
+          typeText(dialogueText, dialogueBox, 22);
+        }
+      }
     }
 
     function showSale() {
-      const box = document.getElementById('aboutBox');
-      const sale = document.getElementById('salePage');
-      box.style.display = 'none';
-      sale.style.display = 'block';
+      dialogueContainer.style.display = 'none';
+      salePage.style.display = 'block';
+      isTyping = false;
     }
   </script>
-
 </body>
 </html>
+
