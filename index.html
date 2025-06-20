@@ -144,7 +144,6 @@
   </style>
 </head>
 <body>
-  <!-- עדכון לכתובת המוזיקה מה-Release שלך -->
   <audio id="bgMusic" src="https://github.com/Sharpykk/MRJOKER/releases/download/release-2025-06-20/Chill.Relaxing.Pokemon.Music.Mix.mp3" loop></audio>
   <button id="musicToggleBtn" title="השתק/הפעל מוזיקה">🔊</button>
   <div class="scene">
@@ -197,23 +196,11 @@
       }
     };
 
-    // טקסט מעודכן עם כל השינויים שביקשת
-    const dialogueText = `שלום לכם, בני אנוש יקרים, וברוכים הבאים לפינה הכי צבעונית באינטרנט – <span class="highlight">הפרופיל שלי</span>!
-אם כבר הגעתם לכאן, תנו לי לספר לכם קצת על עצמי.
-שמי אלון, אבל אתם יכולים לקרוא לי <span class="highlight">MRJOKER</span>.
-אני בן 16, אוהב אנימה, משחקי מחשב, ובעיקר את <span class="highlight">ליגת הפוקימונים</span> – המקום היחיד שבו לזרוק כדור על יצור חמוד לא רק שלא גורם לאנשים להזעיק משטרה…
-הם אפילו מעודדים אותך להמשיך!
-אני טיפוס חברותי – אבל לא מהסוג שנדחף לכל שיחה...
-אני שמח להכיר אנשים חדשים – אם אתם נחמדים, נסתדר יופי. 
-ואם לא… <span class="highlight">אני אשלח את פיקאצ'ו לטפל בזה</span> 😄
-אם בכל זאת בא לכם להכיר אותי יותר טוב – תמצאו אותי בליגה 🙂
-אז תודה שקפצתם לביקור! שיהיה לכם מסע מדהים – ואני מקווה שניצור פה קהילה באמת מגניבה.`;
-
-    const dialogueBox = document.getElementById('dialogueBox');
-    const dialogueContainer = document.getElementById('dialogueContainer');
-    const salePage = document.getElementById('salePage');
+    // טיפוס להקלדה עם עצירת אנימציה נכונה
     let isTyping = false;
     let dialogueShownOnce = false;
+    let typingTimeout = null;
+
     function typeText(htmlText, element, speed = 55) {
       isTyping = true;
       let tempDiv = document.createElement('div');
@@ -233,10 +220,12 @@
       let i = 0;
       let charIndex = 0;
       function nextChar() {
+        if (!isTyping) return; // עצור אם הופסק
         if (i >= nodes.length) {
           isTyping = false;
           element.innerHTML = html;
           dialogueShownOnce = true;
+          typingTimeout = null;
           return;
         }
         let node = nodes[i];
@@ -245,7 +234,7 @@
             html += node.content.charAt(charIndex);
             charIndex++;
             element.innerHTML = html + '<span class="type-cursor">|</span>';
-            setTimeout(nextChar, speed);
+            typingTimeout = setTimeout(nextChar, speed);
           } else {
             charIndex = 0;
             i++;
@@ -267,25 +256,46 @@
       }
       nextChar();
     }
+
+    function stopTyping() {
+      isTyping = false;
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+        typingTimeout = null;
+      }
+    }
+
     function toggleDialogue() {
+      stopTyping();
       if (dialogueContainer.style.display === 'flex' || dialogueContainer.style.display === 'block') {
         dialogueContainer.style.display = 'none';
-        isTyping = false;
       } else {
         salePage.style.display = 'none';
         dialogueContainer.style.display = window.innerWidth < 600 ? 'block' : 'flex';
         if (dialogueShownOnce) {
           dialogueBox.innerHTML = dialogueText;
-        } else if (!isTyping) {
+        } else {
           typeText(dialogueText, dialogueBox, 55);
         }
       }
     }
+
     function showSale() {
+      stopTyping();
       dialogueContainer.style.display = 'none';
       salePage.style.display = 'block';
-      isTyping = false;
     }
+
+    const dialogueText = `שלום לכם, בני אנוש יקרים, וברוכים הבאים לפינה הכי צבעונית באינטרנט – <span class="highlight">הפרופיל שלי</span>!
+אם כבר הגעתם לכאן, תנו לי לספר לכם קצת על עצמי.
+שמי אלון, אבל אתם יכולים לקרוא לי <span class="highlight">MRJOKER</span>.
+אני בן 16, אוהב אנימה, משחקי מחשב, ובעיקר את <span class="highlight">ליגת הפוקימונים</span> – המקום היחיד שבו לזרוק כדור על יצור חמוד לא רק שלא גורם לאנשים להזעיק משטרה…
+הם אפילו מעודדים אותך להמשיך!
+אני טיפוס חברותי – אבל לא מהסוג שנדחף לכל שיחה...
+אני שמח להכיר אנשים חדשים – אם אתם נחמדים, נסתדר יופי. 
+ואם לא… <span class="highlight">אני אשלח את פיקאצ'ו לטפל בזה</span> 😄
+אם בכל זאת בא לכם להכיר אותי יותר טוב – תמצאו אותי בליגה 🙂
+אז תודה שקפצתם לביקור! שיהיה לכם מסע מדהים – ואני מקווה שניצור פה קהילה באמת מגניבה.`;
   </script>
 </body>
 </html>
