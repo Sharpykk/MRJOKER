@@ -7,8 +7,7 @@
   <style>
     html, body {
       margin: 0; padding: 0; height: 100%; direction: rtl;
-      font-family: 'Arial', sans-serif;
-      overflow: hidden;
+      font-family: 'Arial', sans-serif; overflow: hidden;
     }
     body {
       background-image: url('4167709.webp');
@@ -17,220 +16,137 @@
       background-repeat: no-repeat;
     }
     .scene {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      align-items: center;
-      text-align: center;
-      perspective: 1200px;
-      position: relative;
-      z-index: 1;
-      padding-top: 40px;
-      box-sizing: border-box;
+      width: 100vw; height: 100vh; display: flex; flex-direction: column;
+      justify-content: start; align-items: center; text-align: center;
+      perspective: 1200px; position: relative; z-index: 1; padding-top: 40px; box-sizing: border-box;
     }
     .text {
-      font-size: 12vw;
-      font-weight: bold;
-      font-family: 'Impact', 'Arial Black', sans-serif;
-      color: white;
+      font-size: 12vw; font-weight: bold;
+      font-family: 'Impact', 'Arial Black', sans-serif; color: white;
       transform-style: preserve-3d;
       animation: spin 10s linear infinite, float 4s ease-in-out infinite;
-      text-shadow:
-        0 0 10px cyan,
-        0 0 20px blue,
-        0 0 30px cyan,
-        0 0 40px white;
-      user-select: none;
-      z-index: 2;
+      text-shadow: 0 0 10px cyan, 0 0 20px blue, 0 0 30px cyan, 0 0 40px white;
+      user-select: none; z-index: 2;
     }
     @keyframes spin {
-      0% { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+      0% { transform: rotateY(0deg);}
+      100% { transform: rotateY(360deg);}
     }
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-30px);}
     }
     .buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      width: 90vw;
-      max-width: 800px;
-      align-items: center;
-      z-index: 2;
+      margin-top: 20px; display: flex; justify-content: space-between;
+      width: 90vw; max-width: 800px; align-items: center; z-index: 2;
     }
     button {
-      flex: 0 1 320px;
-      padding: 22px 60px;
-      font-size: 30px;
+      flex: 0 1 320px; padding: 22px 60px; font-size: 30px;
       background: linear-gradient(135deg, #00ffff, #ff00ff);
-      color: black;
-      font-weight: 900;
-      border: 3px solid #ff00ff;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow:
-        0 0 20px #00ffff,
-        0 0 40px #ff00ff,
-        0 0 60px #ff00ff;
+      color: black; font-weight: 900; border: 3px solid #ff00ff;
+      border-radius: 20px; cursor: pointer;
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff, 0 0 60px #ff00ff;
       transition: all 0.4s cubic-bezier(.77,0,.18,1);
-      user-select: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      user-select: none; text-transform: uppercase; letter-spacing: 2px;
     }
     button:hover {
-      background: linear-gradient(135deg, #ff00ff, #00ffff);
-      color: white;
-      box-shadow:
-        0 0 30px #ff00ff,
-        0 0 60px #00ffff,
-        0 0 80px #00ffff;
+      background: linear-gradient(135deg, #ff00ff, #00ffff); color: white;
+      box-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffff, 0 0 80px #00ffff;
       transform: scale(1.15) rotate(-2deg);
     }
     .dialogue-container {
-      position: fixed;
-      left: 50%;
-      bottom: 30px;
-      transform: translateX(-50%);
-      width: 90vw;
-      max-width: 900px;
-      z-index: 10;
-      display: none;
-      flex-direction: column;
-      align-items: center;
+      position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%);
+      width: 90vw; max-width: 900px; z-index: 10; display: none;
+      flex-direction: column; align-items: center;
     }
     .trainer-img {
-      width: 120px;
-      max-width: 30vw;
-      margin-bottom: -20px;
-      margin-top: -70px;
-      background: none;
-      user-select: none;
-      z-index: 11;
-      box-shadow: 0 6px 24px 0 rgba(0,0,0,0.25);
-      border-radius: 50%;
-      border: 3px solid #3866b0;
-      background-color: #fff;
+      width: 120px; max-width: 30vw; margin-bottom: -20px; margin-top: -70px;
+      background: none; user-select: none; z-index: 11;
+      box-shadow: 0 6px 24px 0 rgba(0,0,0,0.25); border-radius: 50%;
+      border: 3px solid #3866b0; background-color: #fff;
     }
     .dialogue-box {
-      background: #fff;
-      border: 5px solid #3866b0;
+      background: #fff; border: 5px solid #3866b0;
       border-radius: 32px 32px 64px 32px / 32px 32px 64px 32px;
-      box-shadow: 0 8px 0 #b0c4de;
-      color: #3866b0;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1.1em;
-      padding: 32px 40px 32px 40px;
-      box-sizing: border-box;
-      line-height: 1.6;
-      overflow-y: auto;
-      text-align: right;
-      user-select: text;
-      white-space: pre-wrap;
-      background-clip: padding-box;
-      margin-top: 0;
-      z-index: 12;
-      width: 100%;
-      min-height: 140px;
+      box-shadow: 0 8px 0 #b0c4de; color: #3866b0;
+      font-family: 'Press Start 2P', monospace; font-size: 1.1em;
+      padding: 32px 40px 32px 40px; box-sizing: border-box; line-height: 1.6;
+      overflow-y: auto; text-align: right; user-select: text; white-space: pre-wrap;
+      background-clip: padding-box; margin-top: 0; z-index: 12; width: 100%; min-height: 140px;
       transition: max-height 0.3s;
     }
     .highlight {
-      color: #ff9800;
-      font-weight: bold;
+      color: #ff9800; font-weight: bold;
       text-shadow: 0 0 8px #fff3e0, 0 0 2px #ff9800;
     }
     .type-cursor {
-      display: inline-block;
-      width: 1ch;
-      animation: blink 1s steps(1) infinite;
-      vertical-align: bottom;
+      display: inline-block; width: 1ch;
+      animation: blink 1s steps(1) infinite; vertical-align: bottom;
     }
     @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+      0%, 50% { opacity: 1;}
+      51%, 100% { opacity: 0;}
     }
     #salePage {
-      display: none;
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 30px;
-      border: 2px solid red;
-      border-radius: 15px;
-      box-shadow: 0 0 20px red;
-      max-width: 80vw;
-      margin-top: 0;
-      font-family: Arial, sans-serif;
-      font-size: 1.2em;
-      text-align: center;
-      user-select: none;
-      position: fixed;
-      left: 50%; /* חזרה למרכז */
-      bottom: 40%;
-      transform: translate(-50%, 50%);
+      display: none; background: rgba(0, 0, 0, 0.85); color: white; padding: 30px;
+      border: 2px solid red; border-radius: 15px; box-shadow: 0 0 20px red;
+      max-width: 80vw; margin-top: 0; font-family: Arial, sans-serif;
+      font-size: 1.2em; text-align: center; user-select: none;
+      position: fixed; left: 50%; bottom: 40%; transform: translate(-50%, 50%);
       z-index: 11;
     }
     .error-text {
-      font-size: 32px;
-      color: #ff4444;
-      margin-bottom: 10px;
-      font-weight: bold;
+      font-size: 32px; color: #ff4444; margin-bottom: 10px; font-weight: bold;
     }
-    .dialogue-box::-webkit-scrollbar {
-      width: 8px;
+    .dialogue-box::-webkit-scrollbar { width: 8px;}
+    .dialogue-box::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px;}
+    .dialogue-box::-webkit-scrollbar-thumb { background: #3866b0; border-radius: 10px;}
+    #musicToggleBtn {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 100;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00ffff, #ff00ff);
+      border: 3px solid #fff;
+      box-shadow: 0 0 16px #00ffff, 0 0 24px #ff00ff;
+      font-size: 2rem;
+      color: #222;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .dialogue-box::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-    .dialogue-box::-webkit-scrollbar-thumb {
-      background: #3866b0;
-      border-radius: 10px;
+    #musicToggleBtn:hover {
+      transform: scale(1.08) rotate(-5deg);
+      background: linear-gradient(135deg, #ff00ff, #00ffff);
+      color: #fff;
     }
     @media (max-width: 600px) {
-      .text {
-        font-size: 20vw;
-      }
-      .dialogue-box {
-        font-size: 1em;
-        padding: 20px 16px;
-      }
-      button {
-        font-size: 22px;
-        padding: 16px 28px;
-        width: 100%;
-        max-width: 100%;
-      }
-      .trainer-img {
-        width: 70px;
-        margin-top: -35px;
-      }
-      #salePage {
-        font-size: 1em;
-        padding: 20px;
-        left: 50%; /* חזרה למרכז במובייל */
-        bottom: 40%;
-        transform: translate(-50%, 50%);
-      }
-      .dialogue-container {
-        max-width: 98vw;
-        bottom: 30px;
-      }
-      .buttons {
-        margin-top: 20px;
-        flex-direction: column;
-        gap: 30px;
-        width: 98vw;
-        max-width: 100vw;
-        justify-content: flex-start;
-        align-items: stretch;
+      .text { font-size: 20vw;}
+      .dialogue-box { font-size: 1em; padding: 20px 16px;}
+      button { font-size: 22px; padding: 16px 28px; width: 100%; max-width: 100%;}
+      .trainer-img { width: 70px; margin-top: -35px;}
+      #salePage { font-size: 1em; padding: 20px; left: 50%; bottom: 40%; transform: translate(-50%, 50%);}
+      .dialogue-container { max-width: 98vw; bottom: 30px;}
+      .buttons { margin-top: 20px; flex-direction: column; gap: 30px; width: 98vw; max-width: 100vw; justify-content: flex-start; align-items: stretch;}
+      #musicToggleBtn {
+        top: 10px;
+        left: 10px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- עדכון לכתובת המוזיקה מה-Release שלך -->
+  <audio id="bgMusic" src="https://github.com/Sharpykk/MRJOKER/releases/download/release-2025-06-20/Chill.Relaxing.Pokemon.Music.Mix.mp3" loop></audio>
+  <button id="musicToggleBtn" title="השתק/הפעל מוזיקה">🔊</button>
   <div class="scene">
     <div class="text">MRJOKER</div>
     <div class="buttons">
@@ -247,12 +163,49 @@
     </div>
   </div>
   <script>
+    // מוזיקה - נגן/השתקה
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggleBtn');
+    let pausedAt = 0;
+    let isMuted = false;
+    let musicStarted = false;
+
+    function startMusicOnce() {
+      if (!musicStarted) {
+        music.volume = 0.5;
+        music.play().catch(()=>{});
+        musicStarted = true;
+      }
+    }
+    window.addEventListener('click', startMusicOnce, { once: true });
+
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      if (!musicStarted) {
+        startMusicOnce();
+      }
+      if (!isMuted) {
+        pausedAt = music.currentTime;
+        music.pause();
+        btn.textContent = "🔇";
+        isMuted = true;
+      } else {
+        music.currentTime = pausedAt;
+        music.play();
+        btn.textContent = "🔊";
+        isMuted = false;
+      }
+    };
+
+    // טקסט מעודכן עם כל השינויים שביקשת
     const dialogueText = `שלום לכם, בני אנוש יקרים, וברוכים הבאים לפינה הכי צבעונית באינטרנט – <span class="highlight">הפרופיל שלי</span>!
-אם כבר הגעתם לכאן, תנו לי כמה שניות של תהילה כדי לספר קצת על עצמי.
+אם כבר הגעתם לכאן, תנו לי לספר לכם קצת על עצמי.
 שמי אלון, אבל אתם יכולים לקרוא לי <span class="highlight">MRJOKER</span>.
-אני בן 16, אוהב אנימה, משחקי מחשב, ובעיקר את <span class="highlight">ליגת הפוקימונים</span> – המקום היחיד שבו לזרוק כדור על יצור חמוד לא רק שלא גורם לאנשים להזעיק משטרה… הם אפילו מעודדים אותך להמשיך!
+אני בן 16, אוהב אנימה, משחקי מחשב, ובעיקר את <span class="highlight">ליגת הפוקימונים</span> – המקום היחיד שבו לזרוק כדור על יצור חמוד לא רק שלא גורם לאנשים להזעיק משטרה…
+הם אפילו מעודדים אותך להמשיך!
 אני טיפוס חברותי – אבל לא מהסוג שנדחף לכל שיחה...
-אני שמח להכיר אנשים חדשים – אם אתם נחמדים, נסתדר יופי. ואם לא… <span class="highlight">אני אשלח את פיקאצ'ו לטפל בזה</span> 😄
+אני שמח להכיר אנשים חדשים – אם אתם נחמדים, נסתדר יופי. 
+ואם לא… <span class="highlight">אני אשלח את פיקאצ'ו לטפל בזה</span> 😄
 אם בכל זאת בא לכם להכיר אותי יותר טוב – תמצאו אותי בליגה 🙂
 אז תודה שקפצתם לביקור! שיהיה לכם מסע מדהים – ואני מקווה שניצור פה קהילה באמת מגניבה.`;
 
@@ -261,12 +214,10 @@
     const salePage = document.getElementById('salePage');
     let isTyping = false;
     let dialogueShownOnce = false;
-
-    function typeText(htmlText, element, speed = 22) {
+    function typeText(htmlText, element, speed = 55) {
       isTyping = true;
       let tempDiv = document.createElement('div');
       tempDiv.innerHTML = htmlText;
-
       const nodes = [];
       function flattenNodes(node) {
         if (node.nodeType === Node.TEXT_NODE) {
@@ -278,11 +229,9 @@
         }
       }
       flattenNodes(tempDiv);
-
       let html = '';
       let i = 0;
       let charIndex = 0;
-
       function nextChar() {
         if (i >= nodes.length) {
           isTyping = false;
@@ -291,7 +240,6 @@
           return;
         }
         let node = nodes[i];
-
         if (node.type === 'text') {
           if (charIndex < node.content.length) {
             html += node.content.charAt(charIndex);
@@ -319,7 +267,6 @@
       }
       nextChar();
     }
-
     function toggleDialogue() {
       if (dialogueContainer.style.display === 'flex' || dialogueContainer.style.display === 'block') {
         dialogueContainer.style.display = 'none';
@@ -330,11 +277,10 @@
         if (dialogueShownOnce) {
           dialogueBox.innerHTML = dialogueText;
         } else if (!isTyping) {
-          typeText(dialogueText, dialogueBox, 22);
+          typeText(dialogueText, dialogueBox, 55);
         }
       }
     }
-
     function showSale() {
       dialogueContainer.style.display = 'none';
       salePage.style.display = 'block';
